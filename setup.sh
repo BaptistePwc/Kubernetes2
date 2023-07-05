@@ -1,14 +1,15 @@
 #!/bin/bash
-
-# Déploiement du Secret
+#requirement
+pip install -r requirements.txt
+#Secret
 kubectl apply -f my-secret-eval.yml
 
-# Déploiement du Deployment
+#Deployment
 kubectl apply -f my-deployment-eval.yml
 
-# Déploiement du Service
+# Service
 kubectl apply -f my-service-eval.yml
 
-# Déploiement de l'Ingress
+# Ingress
 kubectl apply -f my-ingress-eval.yml
 
