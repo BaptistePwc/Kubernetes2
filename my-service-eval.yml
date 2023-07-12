@@ -11,3 +11,10 @@ spec:
   selector:
     app: my-app
 
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-app-config
+data:
+  MYSQL_HOST: mysql-k8s-svc

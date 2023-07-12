@@ -7,5 +7,5 @@ spec:
     service:
       name: my-app-service
       port:
-        number: 8000
+        number: 8001
 

@@ -25,15 +25,6 @@ spec:
         image: datascientest/fastapi:1.0.0
         ports:
         - containerPort: 8000
-        env:
-        - name: MYSQL_HOST
-          value: mysql-k8s-svc
-        - name: MYSQL_USER
-          value: root
-        - name: MYSQL_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: my-secret
-              key: mysql-password
-        - name: MYSQL_DATABASE
-          value: Main
+        envFrom:
+        - configMapRef:
+            name: my-app-config

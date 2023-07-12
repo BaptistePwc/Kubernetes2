@@ -13,3 +13,8 @@ kubectl apply -f my-service-eval.yml
 # Ingress
 kubectl apply -f my-ingress-eval.yml
 
+#logs
+
+kubectl get pods
+kubectl get events
+kubectl get ingress

@@ -6,7 +6,7 @@ from sqlalchemy.engine import create_engine
 server = FastAPI(title='User API')
 
 # creating a connection to the database
-mysql_url = 'mysql-k8s-svc'
+mysql_url = environ.get('MYSQL_HOST')
 mysql_user = 'root'
 mysql_password = 'datascientest1234'
 database_name = 'Main'
