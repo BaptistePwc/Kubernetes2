@@ -8,8 +8,9 @@ server = FastAPI(title='User API')
 # creating a connection to the database
 mysql_url = environ.get('MYSQL_HOST')
 mysql_user = 'root'
-mysql_password = 'datascientest1234'
+mysql_password = os.environ.get('MYSQL_ROOT_PASSWORD')
 database_name = 'Main'
+
 
 # recreating the URL connection
 connection_url = 'mysql+pymysql://{user}:{password}@{url}/{database}?charset=utf8mb4'.format(
