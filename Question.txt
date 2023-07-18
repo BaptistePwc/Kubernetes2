@@ -1,0 +1,43 @@
+Bonjour,
+
+Je rencontre des difficultées pour obtenir un resultat lorsque je curl le chemin user.
+Le déploiement "my-app" est en cours d'exécution avec les trois réplicas souhaités et disponibles.
+Apres avoir vérifié mon chemin d'appel les décorateurs du fichiers main.py je m'apperçois que cela semble ok.
+
+Il semblerait donc que j'ai un probleme pour récuperer les infos et donc pour me connecter à la BDD.
+La partie sur la création des variable pour l'url d'appel a la bdd a bcp bouger.
+
+En terme de log l'erreur qui nous pose souci est une 404 :
+
+Events:  <none>
+INFO:     Started server process [6]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     10.42.0.1:19087 - "GET /status HTTP/1.1" 200 OK
+INFO:     10.42.0.1:30608 - "GET /users HTTP/1.1" 404 Not Found
+
+Nous avons 3 pods :
+
+NAME                      READY   STATUS    RESTARTS      AGE
+my-app-7c6f4fcbbb-8rmrd   2/2     Running   8 (42m ago)   24h #BDD mySQL
+my-app-7c6f4fcbbb-5xg7s   2/2     Running   8 (42m ago)   24h #app FastAPI
+my-app-7c6f4fcbbb-6kvcs   2/2     Running   8 (42m ago)   24h
+
+le namespace est : default
+
+Voici les commandes interressantes :
+
+Détail des pods :
+
+kubectl describe pod my-app-7c6f4fcbbb-8rmrd -n default 
+kubectl describe pod my-app-7c6f4fcbbb-5xg7s -n default 
+
+ENV des pods
+SQL
+kubectl exec -it my-app-7c6f4fcbbb-8rmrd -n default -- sh
+Puis effectuer un  > env
+FastAPI :
+kubectl exec -it my-app-7c6f4fcbbb-5xg7s -n default -- sh
+Puis effectuer un  > env
+

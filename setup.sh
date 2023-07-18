@@ -18,3 +18,9 @@ kubectl apply -f my-ingress-eval.yml
 kubectl get pods
 kubectl get events
 kubectl get ingress
+kubectl describe configmap my-app-config
+kubectl logs my-app-7c6f4fcbbb-8rmrd -c fastapi-container
+
+#test
+curl http://10.43.47.90:8000/users
+curl http://10.43.47.90:8000/status

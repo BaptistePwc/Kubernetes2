@@ -1,16 +1,17 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from sqlalchemy.engine import create_engine
+from kubernetes import client, config
+import os
 
-# creating a FastAPI server
-server = FastAPI(title='User API')
+config.load_incluster_config()
+v1 = client.CoreV1Api()
 
-# creating a connection to the database
-mysql_url = environ.get('MYSQL_HOST')
+mysql_url = os.environ.get('MYSQL_HOST')
+secret = v1.read_namespaced_secret(name='my-secret', namespace='default')
+mysql_password = secret.data.get('mysql-password').decode('utf-8')
 mysql_user = 'root'
-mysql_password = os.environ.get('MYSQL_ROOT_PASSWORD')
 database_name = 'Main'
-
 
 # recreating the URL connection
 connection_url = 'mysql+pymysql://{user}:{password}@{url}/{database}?charset=utf8mb4'.format(
@@ -20,7 +21,10 @@ connection_url = 'mysql+pymysql://{user}:{password}@{url}/{database}?charset=utf
     database=database_name
 )
 
-# creating the connection
+# creating a FastAPI server
+server = FastAPI(title='User API')
+
+# creating a connection to the database
 mysql_engine = create_engine(connection_url)
 
 

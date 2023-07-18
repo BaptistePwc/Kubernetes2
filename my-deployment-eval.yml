@@ -21,10 +21,17 @@ spec:
             secretKeyRef:
               name: my-secret
               key: mysql-password
+        - name: MYSQL_USER
+          value: myuser
+        ports:
+        - containerPort: 3306
       - name: fastapi-container
         image: datascientest/fastapi:1.0.0
         ports:
         - containerPort: 8000
-        envFrom:
-        - configMapRef:
-            name: my-app-config
+        env:
+        - name: MYSQL_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: my-app-config
+              key: MYSQL_HOST
